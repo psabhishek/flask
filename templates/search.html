@@ -1,0 +1,15 @@
+
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>search</h1>
+  <form action="" method="POST" enctype="multipart/form-data" >
+    <div class="form-group">
+      <label>Search</label>
+
+      <input type="text" name="search" class="form-control" value={{request.form.search}}>
+    </div>
+    <button type="submit" class="btn btn-primary">search</button>
+  </form>
+{% endblock %}
+

@@ -1,0 +1,30 @@
+
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Login</h1>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label>popularity</label>
+      <input type="text" name="popularity" class="form-control" value={{request.form.popularity}}>
+    </div>
+    <div class="form-group">
+      <label>director</label>
+      <input type="text" name="director" class="form-control" value={{request.form.director}}>
+    </div>
+    <div class="form-group">
+      <label>genre</label>
+      <input type="text" name="genre" class="form-control" value={{request.form.genre}}>
+    </div>
+    <div class="form-group">
+      <label>imdb_score</label>
+      <input type="text" name="imdb_score" class="form-control" value={{request.form.imdb_score}}>
+    </div>
+    <div class="form-group">
+      <label>name</label>
+      <input type="text" name="name" class="form-control" value={{request.form.name}}>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}
+
