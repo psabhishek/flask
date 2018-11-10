@@ -180,7 +180,6 @@ def add_bulk():
 
             movies = Movies(popularity=popularity, director=director, genre=genre, imdb_score=imdb_score, name=name)
             movies.save()
-        import pdb;pdb.set_trace()
 
 
         flash('BULK UPLOAD SUCCESS', 'success')
