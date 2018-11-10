@@ -188,5 +188,4 @@ def add_bulk():
     return render_template('bulk_upload.html',)
 
 if __name__ == '__main__':
-    app.secret_key='secret123'
-    app.run()
+    app.run(port=5000)
