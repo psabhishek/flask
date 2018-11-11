@@ -10,3 +10,4 @@ M_LOGOUT_SUCCESS = 'You are now logged out'
 M_EMPTY_FORM_SUMBITTED = 'No data received'
 M_FORM_SUBMITTED = 'Data saved'
 M_BULK_UPLOAD = 'BULK UPLOAD SUCCESS'
+M_ENTERY_DELETED = "Entery Deleted"

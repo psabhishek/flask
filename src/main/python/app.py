@@ -296,6 +296,8 @@ def get_movies(id,delete):
                     resp = requests.post("http://35.244.38.4:5001/delete_movies",data= json.dumps(es_element) )
 
                     movie.delete_instance()
+                    flash(M_EMPTY_FORM_SUMBITTED, FLASH_SUCCESS)
+                    return redirect(url_for('dashboard'))
                 except Exception as e:
                     flash(M_EMPTY_FORM_SUMBITTED, FLASH_DANGER)
                     return redirect(url_for('dashboard'))

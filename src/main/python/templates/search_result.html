@@ -24,11 +24,7 @@
         <td>{{movie[2]}}</td>
         <td>{{movie[3]}}</td>
         <td>{{movie[4]}}</td>
-        {% if session.isadmin %}
-          <td><a class="btn btn-success" href="/get_movie/{{movie[5]}}/f">Edit</a></td>
-          <td><a class="btn" style="background-color: #d9534f;border-color: #d43f3a; color: #fff;" data-method="delete" href="/get_movie/{{movie[5]}}/t">Delete</a></td>
-        {% else %}
-        {% endif %}
+
       </tr>
     {% endfor %}
   </table>
