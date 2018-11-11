@@ -58,7 +58,6 @@ def search_on_es():
 
     if request.method == "POST":
         return_ele = []
-        import pdb;pdb.set_trace()
         value = request.form.get("search")
         ele = {"serch_key":value}
         elements = requests.post("http://35.244.38.4:5001/search",data = json.dumps(ele))
@@ -105,7 +104,6 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        import pdb;pdb.set_trace()
         username = request.form['username']
         password_candidate = request.form['password']
         result = User.get(User.username == username)
