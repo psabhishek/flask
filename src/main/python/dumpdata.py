@@ -33,7 +33,7 @@ def edit_movies():
         element_id = hashlib.md5(str(data_element["new"]).encode()).hexdigest()
         req = requests.put("http://localhost:9200/fynd/movies/{}".format(str(element_id)),
                            data=j_ele)
-        return jsonify(req.text)
+        return req.text
 
 @app.route('/delete_movies', methods=['GET', 'POST'])
 def del_add():
@@ -84,6 +84,6 @@ def search():
             }
         req = requests.get(
             "http://localhost:9200/fynd/movies/_search", data=json.dumps(search_body))
-        return jsonify(req.text)
+        return req.text
 if __name__ == '__main__':
         app.run(host= "0.0.0.0", port= 5001)
