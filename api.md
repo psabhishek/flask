@@ -5,7 +5,7 @@
  
  - ### Public Api
 
-    ####/register
+    #### /register
     ```sh
         - POST
             Payload
@@ -16,7 +16,7 @@
                  "username":"masterfynd"
             }        
     ```
-    ####/login
+    #### /login
     ```sh
         - POST
             payload 
@@ -26,7 +26,7 @@
             }
       ```
     ![flowdiagram](flowdiagram.jpeg)    
-    ####/search
+    #### /search
     ```sh
     search on database
         - POST
@@ -35,7 +35,7 @@
                 "search":"value"
             }
     ```
-    ####/search_es
+    #### /search_es
     ```sh
     match search on elastic serch
         - POST
@@ -45,7 +45,7 @@
             }
     ```    
     ![Search](search.jpeg)
-    ####/add_admin (only available for super user)
+    #### /add_admin (only available for super user)
     ```sh
     give add and delete rights to users
         - POST
@@ -57,12 +57,12 @@
                  "username":"masterfynd"
             }
     ```
-    ####/dashboard 
+    #### /dashboard 
     ```sh
        - GET
             Shows the result of search 
     ```
-    ####/add_movies
+    #### /add_movies
     ```sh
      Adds a new entery to database and elasticsearch
         - POST
@@ -76,7 +76,7 @@
             }
 
     ```
-    ####/bulkadd
+    #### /bulkadd
     ```sh
     Bulk add to to database and elasticsearch
     upload a json of a type 
@@ -95,7 +95,7 @@
         ]
     
     ```
-    ####/analytics
+    #### /analytics
     ```sh
     Shows realtime analysis graphs on the data
     ```    
