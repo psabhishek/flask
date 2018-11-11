@@ -46,10 +46,16 @@ Peewee (ORM)
 
 ### Phase 2
 - Database Optimization 
+  - Indexing
+  - Redusing Query cache size according to usecase
 - Code level Optimization
 - Caching logged user data to minimize database calls
 
 ### Phase 3
+- Vertical Scaling
+  - SSD insted of HDD
+  - Increasing RAM, cores and CPU
+  (vertical scaling to be done as per monitary cost optimization)
 - Horizontal Scaling 
   - Put loadbalacer and multiple webserver instances.  
 
