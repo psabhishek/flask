@@ -29,8 +29,6 @@ Peewee (ORM)
  - `ADMIN` can add/delete/edit movies. Bulk upload api is also available for `ADMIN` user.
  - `Normal user` aka `customers` will have access to only search the movies.
 
-
-
 ## Algorithm
  
  - Whenever user register into the app the data is stored into the database with password being in `hash`
@@ -40,18 +38,18 @@ Peewee (ORM)
  
 ## Scalabiity
 
-### Phase 1
+### Phase 1 (Build the product fast)
 - Static asset to be put on CDN
 - To be hosted on Apache http or nginx web server
 
-### Phase 2
+### Phase 2 (Stablize and optimize the product)
+- Code level and Query optimization 
 - Database Optimization 
   - Indexing
   - Redusing Query cache size according to usecase
-- Code level Optimization
 - Caching logged user data to minimize database calls
 
-### Phase 3
+### Phase 3 (Hardware Scaling for optimized product)
 - Vertical Scaling
   - SSD insted of HDD
   - Increasing RAM, cores and CPU

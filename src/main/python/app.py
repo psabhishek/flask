@@ -60,7 +60,6 @@ def search_on_es():
         value = request.form.get("search")
         ele = {"serch_key":value}
         elements = requests.post("http://35.244.38.4:5001/search",data = json.dumps(ele))
-        import pdb;pdb.set_trace()
         json_element = json.loads(elements.text)["hits"]["hits"]
 
         for es_ele in  json_element:
