@@ -1,18 +1,20 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators,DecimalField,FieldList
 from passlib.hash import sha256_crypt
 from functools import wraps
 import hashlib
 import json
 
+from forms import RegisterForm
+from messages import M_REGISTRATION_SUCCESS, FLASH_SUCCESS, M_LOGIN_SUCCESS, M_UNAUTHORISED, FLASH_DANGER, \
+    M_LOGOUT_SUCCESS
+from settings import FLASK_HOST, FLASK_PORT,FLASK_SECRET_KEY
+from models import Movies, User
 
-from data import Movies,User
-
-
+import requests
 
 
 app = Flask(__name__)
-app.secret_key = 'secret123'
+app.secret_key = FLASK_SECRET_KEY
 
 
 @app.route('/')
@@ -50,15 +52,7 @@ def search_on_db():
     return render_template('search.html')
 
 
-class RegisterForm(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    username = StringField('Username', [validators.Length(min=4, max=25)])
-    email = StringField('Email', [validators.Length(min=6, max=50)])
-    password = PasswordField('Password', [
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords do not match')
-    ])
-    confirm = PasswordField('Confirm Password')
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -68,12 +62,12 @@ def register():
             name = form.name.data
             email = form.email.data
             username = form.username.data
-            password = hashlib.md5( str(form.password.data).encode()).hexdigest()
+            password = form.password.data ## will be hashed in pre_save form
             isadmin = "False"
             user = User(name = name,email = email , username = username , password = password , isadmin = isadmin)
             user.save()
 
-            flash('You are now registered and can log in', 'success')
+            flash(M_REGISTRATION_SUCCESS, FLASH_SUCCESS)
 
             return redirect(url_for('login'))
     return render_template('register.html', form=form)
@@ -81,7 +75,6 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         username = request.form['username']
         password_candidate = request.form['password']
@@ -91,7 +84,7 @@ def login():
             if hashlib.md5( str(password_candidate).encode()).hexdigest() == password:
                 session['logged_in'] = True
                 session['username'] = username
-                flash('You are now logged in', 'success')
+                flash(M_LOGIN_SUCCESS, FLASH_SUCCESS)
                 return redirect(url_for('dashboard'))
             else:
                 error = 'Invalid login'
@@ -110,7 +103,7 @@ def is_logged_in(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash('Unauthorized, Please login', 'danger')
+            flash(M_UNAUTHORISED, FLASH_DANGER)
             return redirect(url_for('login'))
     return wrap
 
@@ -120,7 +113,7 @@ def is_logged_in(f):
 @is_logged_in
 def logout():
     session.clear()
-    flash('You are now logged out', 'success')
+    flash(M_LOGOUT_SUCCESS, FLASH_SUCCESS)
     return redirect(url_for('login'))
 
 
@@ -152,8 +145,15 @@ def add_movies():
         imdb_score = float(request.form.get('imdb_score'))
         name = request.form.get('name')
         movies = Movies(popularity=popularity, director=director, genre=genre, imdb_score=imdb_score, name=name)
-        movies.save()
 
+        es_element = {
+            "popularity": popularity,
+            "director": director,
+            "genre":  genre.split(","),
+            "imdb_score": imdb_score,
+            "name": name}
+        requests.post("http://35.244.38.4:5001/add_movies",data= json.dumps(es_element) )
+        movies.save()
 
 
         flash('movie Created', 'success')
@@ -174,13 +174,21 @@ def add_bulk():
         for ele in json_element:
 
 
-            popularity = ele["99popularity"]
+            popularity = ele["popularity"]
             director = ele["director"]
             genre = ",".join(ele["genre"])
             imdb_score = ele["imdb_score"]
             name = ele["name"]
 
             movies = Movies(popularity=popularity, director=director, genre=genre, imdb_score=imdb_score, name=name)
+
+            es_element = {
+                "popularity": popularity,
+                "director": director,
+                "genre": genre.split(","),
+                "imdb_score": imdb_score,
+                "name": name}
+            requests.post("http://35.244.38.4:5001/add_movies", data=json.dumps(es_element))
             movies.save()
 
 
@@ -190,5 +198,24 @@ def add_bulk():
     return render_template('bulk_upload.html',)
 
 if __name__ == '__main__':
+    app.run(host=FLASK_HOST,port=FLASK_PORT)
 
-    app.run()
+
+
+
+# # PUT fynd
+# abc = {
+#     "movies": {
+#       "properties": {
+#         "popularity":    { "type": "float"  },
+#         "director":     { "type": "string"  },
+#         "genre":      { "type": "string" }  ,
+# 	    "imdb_score":{"type": "float" },
+# 	    "name":      { "type": "string"}
+#       }
+#     }
+#   }
+#
+#
+# # curl - XPUT
+# # 'http://localhost:9200/fynd'
