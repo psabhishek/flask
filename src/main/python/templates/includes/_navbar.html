@@ -12,9 +12,14 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            <li><a href="/search">search</a></li>
-            <li><a href="/search_es">elastic search</a></li>
-            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/search">DB Search</a></li>
+            <li><a href="/search_es">Elastic Search</a></li>
+            {% if session.isadmin %}
+              <li><a href="/analytics">Analytics</a></li>
+            {% endif %}
+            {% if session.username == 'masterfynd' %}
+              <li><a href="/add_admin">Add admin</a></li>
+            {% endif %}
 
           </ul>
 

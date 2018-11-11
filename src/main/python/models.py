@@ -15,7 +15,7 @@ class User(BaseModel):
     email = peewee.TextField()
     username = peewee.TextField()
     password = peewee.TextField()
-    isadmin = peewee.TextField(default=False)
+    isadmin = peewee.BooleanField(default=False)
 
 @pre_save(sender=User)
 def user_pre_save(sender,instance,created):
