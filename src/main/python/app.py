@@ -61,12 +61,19 @@ def search_on_es():
         ele = {"serch_key":value}
         elements = requests.post("http://35.244.38.4:5001/search",data = json.dumps(ele))
         json_element = json.loads(elements.text)["hits"]["hits"]
-
+        import pdb;pdb.set_trace()
         for es_ele in  json_element:
-            es_obj = es_ele["_source"]
-            movie_ele = (str(es_obj["popularity"]),es_obj["director"],",".join(es_obj["genre"]),
-                               str(es_obj["imdb_score"]),es_obj["name"])
-            return_ele.append(movie_ele)
+            try:
+                es_obj = es_ele["_source"]
+                movie_ele = (str(es_obj["popularity"]),es_obj["director"],",".join(es_obj["genre"]),
+                                   str(es_obj["imdb_score"]),es_obj["name"])
+                return_ele.append(movie_ele)
+            except:
+                es_obj = es_ele["_source"]
+                movie_ele = (str(es_obj["99popularity"]), es_obj["director"], ",".join(es_obj["genre"]),
+                             str(es_obj["imdb_score"]), es_obj["name"])
+                return_ele.append(movie_ele)
+
 
 
 
