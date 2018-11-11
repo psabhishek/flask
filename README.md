@@ -40,9 +40,20 @@ Peewee (ORM)
  
 ## Scalabiity
 
+### Phase 1
+- Static asset to be put on CDN
+- To be hosted on Apache http or nginx web server
+
+### Phase 2
+- Database Optimization 
 - Code level Optimization
-- Caching user data to minimize DB calls
-- 
+- Caching logged user data to minimize database calls
+
+### Phase 3
+- Horizontal Scaling 
+  - Put loadbalacer and multiple webserver instances.  
+
+
 
 
 
