@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Analytics <small> Welcome {{session.username}}</small></h1>
+  <a class="btn btn-success" href="/add_movies"> Add movies</a>
+<a class="btn btn-success" href="/bulkadd">bulk add movies</a>
+  <hr>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <p class="btn btn-success">genre vs count</p>
+            </br>
+            <iframe   src="http://35.244.38.4:5601/app/kibana#/visualize/edit/genre-vs-count?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(filters:!(),linked:!f,query:(query_string:(analyze_wildcard:!t,query:'*')),uiState:(),vis:(aggs:!((id:'1',params:(),schema:metric,type:count),(id:'2',params:(field:genre,order:asc,orderBy:'1',size:100),schema:segment,type:terms)),listeners:(),params:(addLegend:!t,addTooltip:!t,isDonut:!f,shareYAxis:!t),title:'genre%20vs%20count',type:pie))" height="500px" width="100%"> genre vs count</iframe>
+
+
+        </div>
+        <div class="row">
+                <p class="btn btn-success">Line graph for imdb score</p>
+            </br>
+            <iframe  src="http://35.244.38.4:5601/app/kibana#/visualize/edit/line-for-imdb_score?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(filters:!(),linked:!f,query:(query_string:(analyze_wildcard:!t,query:'*')),uiState:(vis:(legendOpen:!t)),vis:(aggs:!((id:'1',params:(),schema:metric,type:count),(id:'2',params:(field:imdb_score,order:asc,orderBy:_term,size:10000),schema:segment,type:terms)),listeners:(),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,defaultYExtents:!f,mode:stacked,scale:linear,setYExtents:!f,shareYAxis:!t,times:!(),yAxis:()),title:'line%20for%20imdb_score',type:histogram))" height="500px" width="100%">Line Imdb score</iframe>
+
+        </div>
+        <div class="row">
+            <p class="btn btn-success">popularity vs count</p>
+            </br>
+            <iframe src="http://35.244.38.4:5601/app/kibana#/visualize/edit/popularity-vs-count?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(filters:!(),linked:!f,query:(query_string:(analyze_wildcard:!t,query:'*')),uiState:(),vis:(aggs:!((id:'1',params:(),schema:metric,type:count),(id:'2',params:(field:popularity,order:desc,orderBy:'1',size:5),schema:segment,type:terms)),listeners:(),params:(addLegend:!t,addTooltip:!t,isDonut:!f,shareYAxis:!t),title:'popularity%20vs%20count',type:pie))" height="500px" width="100%">popularity vs count</iframe>
+        </div>
+    </div>
+</body>
+{% endblock %}
+
